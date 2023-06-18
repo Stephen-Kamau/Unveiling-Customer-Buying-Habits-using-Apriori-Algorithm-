@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Recommender</title>
+</head>
+
+<style media="screen">
+.tbl {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 95%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+
+th,td {
+    padding: 12px 15px;
+}
+
+.tbl tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.tbl tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.tbl tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+.tbl tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+.my_data{
+  width: 60vw;
+  height: 60vw;
+  margin: 0 auto;
+  margin-top: 2%;
+}
+
+
+input[type=text]{
+  font-size: 35px;
+  font-weight: bold;
+  width: 500px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+label {
+  font-size: 25px;
+  font-weight: bold;
+  padding: 14px 14px 14px 0;
+  display: inline-block;
+}
+.form-control{
+  width: 85%;
+}
+
+input[type=submit] {
+  font-size: 35px;
+  font-weight: bold;
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: left;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+
+</style>
+  <body>
+    <div class="my_data">
+        <div class="headers">
+          <h3 align="center" >Product Recommendation Ranks</h3>
+          <h3 align="center">Product Recommendation for Product Id <b> {{result_id}} </b> </3>
+        </div>
+
+        {% if result %}
+      	<table style="" align='center' class="tbl">
+          <thead>
+            <tr>
+                <th>Index</th>
+                <th>Product Code</th>
+                <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in result %}
+               <tr>
+                  <td> {{ loop.index }}</td>
+                  <td> {{ item[0] }} </td>
+                  <td> {{ item[1] }} </td>
+                  <!-- <td>  </td> -->
+               </tr>
+            {% endfor %}
+          </tbody>
+          {% else %}
+          <div align='center'>
+            {% if result_id %} {% else %}<h2 style="color:red">No Such Product Found</h2>{% endif %}
+            <label>Please try these codes as it should have similar format.<br><label>
+            <h3>22386, 85099B,  {{random_ids_codes}}</h3>
+          </div>
+          {% endif %}
+          </table>
+
+          <form  method="post" style="width:50vw;margin:auto;" enctype="multipart/form-data">
+            <div class="data_inputer">
+              <div class="input form-control">
+                <label><h2>Please enter correct code for a product</h2><label>
+                  <input type="text" name="product_code" value="" placeholder="Enter product code">
+                </div>
+                <br>
+                <div class="row">
+                  <input type="submit" value="Recomend">
+                </div>
+              </div>
+          </form>
+    </div>
+
+  </body>
+</html>
